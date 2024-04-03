@@ -44,7 +44,7 @@ const JobListPage = () => {
           }
         </div>
       </div>
-      <div class="footernav JobFooter">
+      <div className="footernav JobFooter">
               <li onClick={console.log('filter applied')} className='active-btn'>For me</li>
               <li onClick={console.log('filter applied')}>All</li>
         </div>

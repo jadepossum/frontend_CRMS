@@ -116,6 +116,7 @@ input::-ms-reveal{
   border-radius: 20px 20px 0px 0px;
 }
 .footernav > li{
+  cursor: pointer;
   color: white;
   font-weight:bold ;
   text-align: center;
@@ -361,6 +362,27 @@ tr:nth-child(even) {
   margin: 10px;
   border-radius: 20px;
 }
+.profile-page  button{
+  height: 30px;
+  /* border: 3px solid black; */
+  color: white;
+  font-style: normal;
+  background-color: black;
+  margin-top: 5px;
+  border-radius: 40px;
+  list-style-type: none;
+  padding-inline:5px;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* flex-grow: 1; */
+  text-align: center;
+}
+.profile-btn-container{
+  display: flex;
+  justify-content: space-around;
+}
 .profile {
   display: flex;
   align-items: center;
@@ -475,15 +497,17 @@ tr:nth-child(even) {
   color: #666;
 }
 
+/* .add-edu-form{
+  overflow: hidden;
+} */
 .profile-experience {
   border-radius: 10px;
   margin-inline: 10px;
-  margin-block-end: 10px;
+  /* margin-block-end: 10px; */
   padding: 10px;
   background-color: #fff;
-  flex-grow: 1;
+  flex-grow: 1;  
 }
-
 .profile-experience-title {
   font-size: 20px;
   font-weight: bold;
@@ -520,8 +544,104 @@ tr:nth-child(even) {
   font-size: 14px;
   color: #666;
 }
+.profile-certifications {
+  border-radius: 10px;
+  margin-inline: 10px;
+  margin-block-end: 10px;
+  padding: 10px;
+  background-color: #fff;
+  /* flex-grow: 1;   */
+}
+.profile-certifications-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
 
+.profile-certifications-item {
+  display: flex;
+  align-items: left;
+  margin-bottom: 10px;
+}
 
+.profile-certifications-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.profile-certifications-name {
+  font-size: 16px;
+  color: #333;
+}
+
+.profile-certifications-url {
+  font-size: 14px;
+  color: #666;
+}
+
+.profile-certifications-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.profile-certifications-skills {
+  margin-top: 5px;
+}
+
+.profile-certifications-skill {
+  display: inline-block;
+  font-size: 14px;
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 3px 8px;
+  border-radius: 5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.profile-certifications-domain {
+  font-size: 14px;
+  color: #666;
+}
+
+.profile-certifications-year {
+  margin-left: auto;
+  font-size: 14px;
+  color: #666;
+}
+.profile-form{
+  display: none;
+  grid-template-columns: 1fr 20px 2fr;
+  background-color: rgb(144, 144, 243);
+  padding-block: 20px;
+  color: white;
+  font-weight: 700;
+  gap: 0px;
+  align-items: baseline;
+}
+.profile-form > label{
+  grid-column: 1/2;
+  justify-self: right;
+  padding-inline-end: 10px;
+}
+.save-intern,.save-cert{
+  display: none;
+}
+.profile-input{
+  width: auto;
+  grid-column: 3/4;
+  margin-block: 2px;
+  margin-inline-end: 30px;
+  border-radius: 20px;
+  /* appearance: none; */
+  padding-inline-start:  10px;
+  padding-block :5px;
+  border: 0px;
+}
 /* Login-page */
 .Login{
   /* display: flex;
