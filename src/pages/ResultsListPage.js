@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-
+import { NavLink, Navigate } from 'react-router-dom';
+import { useAuth } from '../hooks/userAuthContext';
 function ResultsListPage() {
+  const {profile} = useAuth()
   const [activeBtn, setActiveBtn] = useState(0);
 
   useEffect(() => {
@@ -31,8 +32,9 @@ function ResultsListPage() {
   }, []);
 
   return (
+    (profile.studentDetails==undefined)?<Navigate to="/" replace={true}/>:
     <div className="page-container">
-      <div className="list">
+      <div className="Contact">
         <div className="page">
           <NavLink to="1" className="result">
             CSE

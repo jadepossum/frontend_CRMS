@@ -9,14 +9,14 @@ import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 import JobCard from './pages/JobCard';
 import ResultCard from './pages/ResultCard';
-const router = createBrowserRouter([
 
+const router = createBrowserRouter([
   {
     path:'/',
     element:<Layout/>,
     children : [{
         path:'/',
-        element:<JobListPage/>
+        element:<LoginPage/>
       
       },
       {
@@ -41,14 +41,15 @@ const router = createBrowserRouter([
         element:<ContactPage/>
       },
       {
-        path :'login',
-        element:<LoginPage/>
-      }
+        path :'apply',
+        element:<JobListPage/>
+      },
     ]
   }, 
 ])
 
 class App extends Component{
+  
   render(){
     return (
       <div className="App">

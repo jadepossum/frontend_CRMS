@@ -1,12 +1,15 @@
-import React from 'react';
+import React,{userState} from 'react';
 import Header from './Header';
 import { Outlet } from 'react-router-dom';
+import { AuthProvider } from '../hooks/userAuthContext';
 function Layout() {
   return (
-    <div className='Layout'>
-      <Header />
-      <Outlet/>
-    </div>
+    <AuthProvider>
+      <div className='Layout'>
+        <Header />
+        <Outlet/>
+      </div>
+    </AuthProvider>
   )
 }
 

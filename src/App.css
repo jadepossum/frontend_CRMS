@@ -42,7 +42,10 @@ input::-ms-reveal{
   align-items: center; */
   height: 100vh;
   width: 100%;
+  background-image: url("https://img.freepik.com/free-vector/recruitment-concept-illustration_114360-24595.jpg?size=626&ext=jpg&ga=GA1.1.131145598.1708596530&semt=sph");
   background-color: #cabde4;
+  background-position-x: left;
+  background-size: contain;
   /* overflow: hidden; */
 }
 
@@ -55,7 +58,7 @@ input::-ms-reveal{
   left: 50%;
   translate: -50%;
   justify-self: center;
-  background-color: rgb(62, 62, 131);
+  background-color: rgba(62, 62, 131,1);
   display: flex;
   padding-inline:5px;
   gap: 5px;
@@ -99,21 +102,23 @@ input::-ms-reveal{
 
 /* Footer */
 .footernav{
-  height: 50px; 
+  /* height: 40px;  */
   width: 260px;
-  padding-inline: 5px;
+  padding-inline: 3px;
+  padding-block: 3px;
   position: sticky;
-  bottom: 0px;
+  bottom: 15px;
   /* left: 50vw;
   translate: -50% 0px; */
   margin-left: calc(50% - 130px);
   display: flex;
   justify-content: center;
   gap: 5px;
-  background-color: rgb(62, 62, 131);
+  /* background-color: rgb(62, 62, 131); */
   /* background-color: black; */
-  /* border: 3px solid white; */
-  border-radius: 20px 20px 0px 0px;
+  border: 3px solid white;
+  /* border-radius: 20px 20px 0px 0px; */
+  border-radius: 100px;
 }
 .footernav > li{
   cursor: pointer;
@@ -125,11 +130,12 @@ input::-ms-reveal{
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 40px;
-  margin-top: 5px;
+  border-radius: 100px;
+  /* margin-top: 5px; */
   padding-inline: 10px;
   flex-grow: 1;
   background-color: rgb(144, 144, 243);
+  background-color: rgba(222, 93, 93, 0.9);
   list-style-type: none;
 }
 .footernav > .active-btn{
@@ -161,7 +167,7 @@ input::-ms-reveal{
   /* left: 50%; */
   /* translate: -50%; */
   /* overflow: auto; */
-  background-color: rgb(93, 93, 147);
+  background-color: rgba(93, 93, 147,0.7);
 }
 .page{
   /* display: flex;
@@ -297,7 +303,7 @@ tr:nth-child(even) {
 
 /* Contact-page */
 .Contact{
-  background-color: rgb(62, 62, 131);
+  background-color: rgba(62, 62, 131,0.7);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -373,7 +379,7 @@ tr:nth-child(even) {
   list-style-type: none;
   padding-inline:5px;
   width: 70px;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
   /* flex-grow: 1; */
@@ -455,6 +461,7 @@ tr:nth-child(even) {
 
 .profile-education {
   margin-inline: 10px;
+  margin-block-end: 10px;
   border-radius: 10px;
   padding: 10px;
   background-color: #fff;
@@ -503,6 +510,7 @@ tr:nth-child(even) {
 .profile-experience {
   border-radius: 10px;
   margin-inline: 10px;
+  margin-block-end: 10px;
   /* margin-block-end: 10px; */
   padding: 10px;
   background-color: #fff;
@@ -519,6 +527,9 @@ tr:nth-child(even) {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  background-color: rgb(144, 144, 243);
+  font-weight: 600;
+  padding: 20px;
 }
 
 .profile-experience-logo {
@@ -531,23 +542,26 @@ tr:nth-child(even) {
 
 .profile-experience-name {
   font-size: 16px;
-  color: #333;
+  padding-block:5px ;
+  padding-inline:10px ;
+  background-color: white;
+  border-radius: 15px;
+  /* color: #333; */
 }
 
 .profile-experience-role {
   font-size: 14px;
-  color: #666;
+  margin-top: 10px;
 }
 
 .profile-experience-year {
   margin-left: auto;
   font-size: 14px;
-  color: #666;
+  /* color: #666; */
 }
 .profile-certifications {
   border-radius: 10px;
   margin-inline: 10px;
-  margin-block-end: 10px;
   padding: 10px;
   background-color: #fff;
   /* flex-grow: 1;   */
@@ -561,7 +575,10 @@ tr:nth-child(even) {
 
 .profile-certifications-item {
   display: flex;
+  background-color: rgb(144, 144, 243);
+  font-weight: 600;
   align-items: left;
+  padding: 20px;
   margin-bottom: 10px;
 }
 
@@ -575,12 +592,21 @@ tr:nth-child(even) {
 
 .profile-certifications-name {
   font-size: 16px;
-  color: #333;
+  padding-block:5px ;
+  max-width: 250px;
+  display: block;
+  /* display: flex; */
+  /* width: fit-content; */
+  padding-inline:10px ;
+  background-color: white;
+  text-wrap: wrap;
+  border-radius: 15px;
+  /* color: #333; */
 }
 
 .profile-certifications-url {
   font-size: 14px;
-  color: #666;
+  /* color: #666; */
 }
 
 .profile-certifications-link {
@@ -589,7 +615,7 @@ tr:nth-child(even) {
 }
 
 .profile-certifications-skills {
-  margin-top: 5px;
+  margin-top: 15px;
 }
 
 .profile-certifications-skill {
@@ -605,13 +631,14 @@ tr:nth-child(even) {
 
 .profile-certifications-domain {
   font-size: 14px;
-  color: #666;
+  margin-top:10px;
+  /* color: #e1e0e0; */
 }
 
 .profile-certifications-year {
   margin-left: auto;
   font-size: 14px;
-  color: #666;
+  /* color: #666; */
 }
 .profile-form{
   display: none;
@@ -619,9 +646,15 @@ tr:nth-child(even) {
   background-color: rgb(144, 144, 243);
   padding-block: 20px;
   color: white;
+  overflow-y: hidden;
+  /* animation: height 0.5s ease-in-out; */
   font-weight: 700;
   gap: 0px;
   align-items: baseline;
+}
+.add-cert-form,.add-intern-form{
+  border-radius: 20px;
+  margin-inline:10px;
 }
 .profile-form > label{
   grid-column: 1/2;
@@ -632,7 +665,8 @@ tr:nth-child(even) {
   display: none;
 }
 .profile-input{
-  width: auto;
+  max-width: 300px;
+  font-size: medium;
   grid-column: 3/4;
   margin-block: 2px;
   margin-inline-end: 30px;
@@ -640,23 +674,27 @@ tr:nth-child(even) {
   /* appearance: none; */
   padding-inline-start:  10px;
   padding-block :5px;
-  border: 0px;
+  border: 10px;
+}
+.profile-input:focus{
+  border: 0px transparent;
+  background-color: rgb(200, 199, 241);
 }
 /* Login-page */
 .Login{
-  /* display: flex;
-  flex-direction: column;
-  gap: 20px; */
   width: 350px;
   height: 200px;
+  background-image: url("https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-83.jpg?t=st=1713185465~exp=1713186065~hmac=06e9029ad32266f26c31804c9e58fd94b6eafa9b23d39552b84e9ef21b3ab965");
   background-color: rgb(144, 144, 243);
+  background-position: center;
+  background-size: cover;
   position: relative;
   top: calc(50% - 30px);
   left: 50%;
   translate:-50% -50%;
   border-radius: 30px;
   border: 5px rgb(62, 62, 131) solid;
-  padding-top: 20px;
+  padding-top: 200px;
 }
 .Login > *{
   margin-top: 20px;
@@ -718,4 +756,11 @@ tr:nth-child(even) {
     display: grid;
     justify-items: center;
   }
+}
+
+.inner-container{
+  border-radius: 10px;
+  margin-inline: 10px;
+  padding: 10px;
+  background-color: #fff;
 }
