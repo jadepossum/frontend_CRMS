@@ -1,72 +1,127 @@
-import React,{useState, useEffect} from 'react'
-import JPost from '../Components/JPost'
+import React,{useState, useEffect, useRef} from 'react'
 import { useAuth } from '../hooks/userAuthContext';
 import {Navigate} from 'react-router-dom'
+import ModalCard from '../Components/ModalCard';
+import JobPost from '../Components/JobPost';
+import AnimateSpin from '../Components/AnimateSpin';
 const JobListPage = () => {
-    const {user,profile} = useAuth()
+    const secondload = useRef(false)
+    const fetchcomplete =useRef(0)
+
+    const {isLoggedIn} = useAuth()
     const [isLoading,setIsLoading] = useState(true)
     const [errMsg,setErrMsg] = useState('')
-    let [jposts, setPosts] = useState([]);
+    const [selectedjobid,setSelectedJob] = useState(null)
+    const [hasNextPage,setHasNextPage] = useState(true);
+    const [jposts, setPosts] = useState([]);
+    const [pagecount,setPageCount] = useState(1);
+    
     useEffect(() => {
-      if(sessionStorage.getItem('posts')==null) getPosts()
-      else {
-          setPosts(JSON.parse(sessionStorage.getItem('posts')))
-          setIsLoading(false)
+      console.count("joblist useEffect in action")
+      // const controller = new AbortController()
+      // const signal = controller.signal
+      if(secondload.current===true){
+        if(sessionStorage.getItem('posts')===null){
+          console.log("fetching posts")
+          getPosts()
+        } 
+        else {
+          console.log("setting posts from sessionstorage")
+            setPosts(JSON.parse(sessionStorage.getItem('posts')))
+            setIsLoading(false)
+          }
+        if(sessionStorage.getItem('currentPageCount')!==null){
+          console.log("setting page count from sessionStorage")
+          setPageCount(JSON.parse(sessionStorage.getItem('currentPageCount')))
         }
-    console.log('profile is :',profile)
-  },[])
-
-  let getPosts = async ()=>{
-    await fetch('api/getjobs')
-    .then(res=>res.json())
-    .then(data=>{
-      // if(data.Description==undefined) setErrMsg(data)
-      // else{
-        setPosts(data)
-        console.log(data)
-
+      }
+      // console.log('profile is :',profile) 
+      return ()=>{
+        console.count("joblist cleanup code")
+        // controller.abort()
+        secondload.current = true;
+      }
+    },[])
+    
+    const getPosts = async ()=>{
+      if(fetchcomplete.current==1) return null;
+      setIsLoading(true)
+      console.log("isLoading :",isLoading)
+      await fetch("api/getjobs?page=" + pagecount,{method : "GET"})
+      .then(res=>res.json())
+      .then(data=>{
+        console.log("has-next-page : ",data.hasNextPage,"  current-page :",data.currentPage,)
+        if(data.posts===undefined){
+          setErrMsg(data)
+        }
+        else{
+              if(pagecount===1){
+                console.log('fetched joblist page 1 :',data.posts)
+                sessionStorage.setItem('posts',JSON.stringify(data.posts))
+                setPosts(data.posts)
+              }else{
+                console.log("fetched joblist page :",pagecount,data.posts)
+                let newtotposts = [...jposts,...data.posts];
+                // newtotposts = newtotposts.concat(data.posts);
+                console.log("newtotposts :",newtotposts)
+                sessionStorage.setItem('posts',JSON.stringify(newtotposts))
+                setPosts(newtotposts)
+              }
+              if(data.hasNextPage){
+                console.log("data has next page : ",data.currentPage)
+                setPageCount(prevcount=>prevcount+1)
+                sessionStorage.setItem('currentPageCount',JSON.stringify(pagecount))
+              }
+              else setHasNextPage(data.hasNextPage)
+        }
         setIsLoading(false)
-        sessionStorage.setItem('posts',JSON.stringify(data))
-      // }
-    })
-  }
-
-  var filt = false
-  var filteroptions = document.querySelectorAll('.JobFooter > li')
-  filteroptions.forEach(elem=>{
-      elem.addEventListener('click',()=>{
-        if(!elem.classList.contains("active-btn")){
-          filteroptions[0].classList.remove('active-btn')
-          filteroptions[1].classList.remove('active-btn')
-          elem.classList.add('active-btn')
-        }
       })
-  })
+      .catch(err=>console.log(err))
+      fetchcomplete.current = 0
+      console.log('isLoading :',isLoading)
+    }
+  
+    const filterClickHandler = (event)=>{
+      const filteroptions = document.querySelectorAll('.JobFooter > li');
+      filteroptions.forEach(elem => {
+          if (!event.target.classList.contains("active-btn")) {
+            filteroptions[0].classList.remove('active-btn');
+            filteroptions[1].classList.remove('active-btn');
+            event.target.classList.add('active-btn');
+          }
+        })
+    }
 
     return (
-      (profile.studentDetails==undefined)?<Navigate to="/" replace={true} />:
-      (isLoading)?<div className='page-container'><div className="load-spinner">loading</div></div>:
+      (isLoggedIn===false)?<Navigate to="/" replace={true} />:
       <div className='page-container'>
         <div className='Contact'>
+          {pagecount===1&&isLoading===true?<AnimateSpin/>:
           <div className='page'>
-            {/* <JPost key={1} jpost={{"Title":"Web Developer","Description":"Web developers create and maintain websites and web applications for various purposes, such as e-commerce, education, entertainment, or social media. They use web technologies, such as HTML, CSS, JavaScript, and PHP, to design and implement the front-end and back-end of the web pages and applications.","Id":1}} />
-            <JPost key={2} jpost={{"Title":"Software Developer","Description":"Software developers create, test, and maintain software applications for various purposes, such as web development, mobile development, gaming, or data analysis. They use programming languages, frameworks, and tools to design and implement software solutions.","Id":2}} />
-            <JPost key={3} jpost={{"Title":"Information Security Analyst","Description":"Information security analysts protect the data and systems of organizations from unauthorized access, attacks, or breaches. They use various techniques and tools to monitor, analyze, and respond to security incidents and threats. They also implement security policies and best practices to ensure the safety and privacy of information.","Id":3}} />
-            <JPost key={4} jpost={{"Title":"Data Scientist","Description":"Data scientists collect, process, and analyze large and complex datasets to extract meaningful insights and patterns. They use statistical methods, machine learning algorithms, and visualization tools to perform data mining, modeling, and interpretation. They also communicate their findings and recommendations to stakeholders and decision-makers.","Id":4}} />
-            <JPost key={5} jpost={{"Title":"Software Tester","Description":"Software testers verify and validate the quality and functionality of software products or systems. They use various methods and tools to perform testing activities, such as unit testing, integration testing, system testing, and user acceptance testing. They also identify, report, and resolve software defects and issues.","Id":5}} />
-            <JPost key={6} jpost={{"Title":"Database Administrator","Description":"Database administrators manage the data storage and retrieval systems of an organization. They ensure the security, integrity, and availability of the data and databases. They also perform tasks such as backup, recovery, tuning, and troubleshooting of the databases.","Id":6}} />
-            <JPost key={7} jpost={{"Title":"Computer Systems Analyst","Description":"Computer systems analysts evaluate the existing IT systems and processes of an organization and recommend improvements or solutions. They analyze the business needs, technical requirements, and budget constraints of the organization and design optimal IT systems that meet those criteria.","Id":7}} /> */}
+            <ModalCard job={jposts[0]} open={selectedjobid} resetSelected = {()=>{setSelectedJob(null)}}></ModalCard>
             {
              jposts.map((post)=>{
-                return <JPost key={post.id} jpost={post} />
+                {/* return <JPost key={post.id} jpost={post} /> */}
+                return <JobPost key={post.id} jpost={post} setjob ={(jb)=>{setSelectedJob(jb)}}/>
               })
             }
+            <JobPost key={4454545} jpost={{"Title":"Data Scientist","Description":"Data scientists collect, process, and analyze large and complex datasets to extract meaningful insights and patterns. They use statistical methods, machine learning algorithms, and visualization tools to perform data mining, modeling, and interpretation. They also communicate their findings and recommendations to stakeholders and decision-makers.","Id":4}} />
+            {pagecount!==1&&isLoading===true?<div className='load-spin-outer-container'><AnimateSpin/></div>:null}
+            {(!isLoading)&&hasNextPage&&
+            <button key={5454545}
+                  className='load-more-jobs job-post'
+                  onClick={()=>{getPosts();fetchcomplete.current=1}}
+              >Load More</button>}
           </div>
+          }
+
         </div>
         <div className="footernav JobFooter">
-                <li onClick={console.log('filter applied')} className='active-btn'>For me</li>
-                <li onClick={console.log('filter applied')}>All</li>
-          </div>
+                <li onClick={(e)=>filterClickHandler(e)} className='active-btn'>For me</li>
+                <li onClick={(e)=>filterClickHandler(e)}>All</li>
+                {/* <li onClick={console.log('filter applied')} className='active-btn'>For me</li>
+                <li onClick={console.log('filter applied')}>All</li> */}
+        </div>
       </div>
     )
   }

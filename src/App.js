@@ -9,7 +9,6 @@ import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 import JobCard from './pages/JobCard';
 import ResultCard from './pages/ResultCard';
-
 const router = createBrowserRouter([
   {
     path:'/',

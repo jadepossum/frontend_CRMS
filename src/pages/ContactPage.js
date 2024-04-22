@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 function ContactPage() {
+  useEffect(() => {
+    
+  },[])
+
   return (
     <div className='page-container'>
         <div className="Contact">

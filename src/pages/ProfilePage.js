@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useAuth } from '../hooks/userAuthContext';
 import {Navigate} from 'react-router-dom';
 function ProfilePage() {
-    const {user,isloggedIn,profile,setProfile,csrftoken} = useAuth();
+    const {isloggedIn,profile,setProfile,csrftoken} = useAuth();
     const [seed,setSeed] = useState(false)
     useEffect(() => {
         console.log("profile is :",profile)
@@ -10,8 +10,8 @@ function ProfilePage() {
 
     function addClickHandler(e) {
         e.preventDefault();
-        e.target.innerHTML == 'Add'?e.target.innerHTML = 'Cancel':e.target.innerHTML = 'Add';
-        if(e.target.innerHTML == 'Add'){
+        e.target.innerHTML === 'Add'?e.target.innerHTML = 'Cancel':e.target.innerHTML = 'Add';
+        if(e.target.innerHTML === 'Add'){
             if(e.target.classList.contains('add-cert')){
                 document.querySelector('.add-cert-form').style.display = 'none';
                 document.querySelector('.add-cert-form').reset();
@@ -40,7 +40,7 @@ function ProfilePage() {
         e.preventDefault();
         if(e.target.classList.contains('save-cert')){
             document.querySelectorAll(".add-cert-form input").forEach((input)=>{
-                if(input.value == ""){
+                if(input.value === ""){
                     alert("Please fill all the details");
                     return null;
                 }
@@ -61,7 +61,7 @@ function ProfilePage() {
             })
             .then(res => res.json())
             .then(data => {
-                if(data.roll_number!=undefined){
+                if(data.roll_number!==undefined){
                     console.log("upload res data : ",data)
                     console.log('changed profiel :',profile)
                     let certs = profile;
@@ -94,7 +94,7 @@ function ProfilePage() {
             })
             .then(res => res.json())
             .then(data => {
-                if(data.roll_number!=undefined){
+                if(data.roll_number!==undefined){
                     console.log("upload res data : ",data)
                     console.log('changed profile :',profile)
                     let newprofile = profile;
@@ -108,13 +108,13 @@ function ProfilePage() {
 
     }
 return (
-    (profile.studentDetails==undefined)?<Navigate to={'/'} replace={true}></Navigate>:
+    (profile.studentDetails===undefined)?<Navigate to={'/'} replace={true}></Navigate>:
     (isloggedIn)?<div className='page-container'>profile not found</div>:
     <div className='page-container'>
         <div className='profile-page Contact'>
 
             <div className="profile">
-                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile Image" className="profile-image"/>
+                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile-icon" className="profile-image"/>
                 <div className="profile-info">
 
                     <div className="profile-name">{profile.studentDetails.name}</div>
@@ -153,7 +153,7 @@ return (
             <div className="profile-certifications">
                     <div className="profile-certifications-title">Certifications</div>
 
-                {(profile.certificationDetails!=undefined)&&profile.certificationDetails.map(cert => {
+                {(profile.certificationDetails!==undefined)&&profile.certificationDetails.map(cert => {
                     return <div key={cert.id + 5000} className="profile-certifications-item">
                                 <div className="profile-certifications-info">
                                     <a href={cert.url} target='blank' className="profile-certifications-name">{cert.title}</a>

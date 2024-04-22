@@ -35,6 +35,15 @@ input::-ms-reveal{
   height: 100vh;
   height: 100dvh;
 }
+#portal-root{
+  display: none;
+  background-color: rgba(49, 38, 38, 0.9);
+  width: 100vw;
+  height:100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
 .Layout {
   text-align: center;
   /* display: flex;
@@ -42,9 +51,11 @@ input::-ms-reveal{
   align-items: center; */
   height: 100vh;
   width: 100%;
-  background-image: url("https://img.freepik.com/free-vector/recruitment-concept-illustration_114360-24595.jpg?size=626&ext=jpg&ga=GA1.1.131145598.1708596530&semt=sph");
+  /* background-image: url("https://img.freepik.com/free-vector/recruitment-concept-illustration_114360-24595.jpg?size=626&ext=jpg&ga=GA1.1.131145598.1708596530&semt=sph"); */
+  background-image: url("https://img.freepik.com/free-vector/data-analysis-business-concept-doodle-analysts-office-people-work-together-research-statistics-charts-graphs-diagrams-sales-management-operational-reports-line-art-vector-illustration_107791-9818.jpg?t=st=1713641103~exp=1713644703~hmac=940c1f80d257dcbcc6bb79d78e3ab058e4c8f93baab2b991aa06ec73d914a296&w=1380");
   background-color: #cabde4;
   background-position-x: left;
+  background-repeat: repeat;
   background-size: contain;
   /* overflow: hidden; */
 }
@@ -65,7 +76,7 @@ input::-ms-reveal{
   color: white;
   border-radius: 50px;
   flex-wrap: 1;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 .header > a{
   height: 40px;
@@ -114,7 +125,7 @@ input::-ms-reveal{
   display: flex;
   justify-content: center;
   gap: 5px;
-  /* background-color: rgb(62, 62, 131); */
+  background-color: rgb(62, 62, 131);
   /* background-color: black; */
   border: 3px solid white;
   /* border-radius: 20px 20px 0px 0px; */
@@ -174,7 +185,7 @@ input::-ms-reveal{
   flex-direction: column; */
   padding-inline-start: 10px;
   padding-inline-end: 10px;
-  padding-block-end: 50px;
+  padding-block-end: 200px;
   padding-block-start: 10px;
   /* background-color: red; */
   display: grid;
@@ -183,10 +194,14 @@ input::-ms-reveal{
   gap: 10px;
   height: calc(100% - 60px);
   overflow-y: auto;
+  justify-items: center;
+  align-items: center;
 }
 
 /* sub-pages */
-.job,.result{
+.job-post,.result{
+  /* min-width: 350px; */
+  width: calc(100% - 40px);
   background-color: white;
   height: fit-content;
   /* margin-inline: 10px; */
@@ -194,10 +209,52 @@ input::-ms-reveal{
   text-align: center;
   /* width: ; */
   align-self: center;
+  flex-grow: 1;
   padding: 20px;
 }
 
 /* JobPost Styling */
+.job-modal{
+  background-color: red;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.close-job-modal-btn{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: red;
+  color: white;
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  padding-inline: 5px ;
+  padding-block: 3px ;
+  border-radius: 30px;
+  border: 0px;
+  outline: none;
+}
+.load-more-jobs{
+  background-color: rgb(80, 47, 85);
+  width: 200px;
+  position: relative;
+  margin-block-start: 100px;
+  font-size: larger;
+  cursor:pointer;
+  color: white;
+  border: 0px;
+  /* left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); */
+}
 .card {
   margin: 10px;
   height: calc(100% - 20px);
@@ -364,8 +421,7 @@ tr:nth-child(even) {
   margin: 0 auto;
   font-family: Arial, sans-serif;
 }
-.Contact > div > div{
-  margin: 10px;
+.Contact > div > .job-post{
   border-radius: 20px;
 }
 .profile-page  button{
@@ -682,19 +738,22 @@ tr:nth-child(even) {
 }
 /* Login-page */
 .Login{
-  width: 350px;
-  height: 200px;
+  width: 330px;
+  height: 280px;
   background-image: url("https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-83.jpg?t=st=1713185465~exp=1713186065~hmac=06e9029ad32266f26c31804c9e58fd94b6eafa9b23d39552b84e9ef21b3ab965");
   background-color: rgb(144, 144, 243);
   background-position: center;
   background-size: cover;
   position: relative;
+  /* top: calc(50% - 30px);
+  left: 50%;
+  translate:-50% -50%; */
   top: calc(50% - 30px);
   left: 50%;
-  translate:-50% -50%;
+  transform: translate(-50%, -50%);
   border-radius: 30px;
   border: 5px rgb(62, 62, 131) solid;
-  padding-top: 200px;
+  /* padding-top: 200px; */
 }
 .Login > *{
   margin-top: 20px;
@@ -702,7 +761,8 @@ tr:nth-child(even) {
 .Login > input:focus{
   outline: none;
 }
-.Uname,.Pword{
+
+.Uname,.Pword,.login-error,.login-loading{
   text-align: center;
   font-size: larger;
   color: black;
@@ -713,6 +773,48 @@ tr:nth-child(even) {
   padding-inline: 10px;
   box-shadow: 0px 0px 0px 4px rgb(62, 62, 131);
 }
+.login-loading{
+  font-weight: 600;
+  font-size: larger;
+  position: relative;
+  display: flex;
+  margin-inline:auto;
+  justify-content: center;
+  align-items: center;
+  animation: blink-animation 1.5s linear infinite;
+  background-color: rgba(222, 93, 93, 0.9);
+}
+.login-error{
+  position: absolute;
+  font-weight: 600;
+  font-size: larger;
+  top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  transform: translate(-50%);
+  animation: blink-animation 1.5s linear infinite;
+  background-color: rgba(74, 60, 131, 1);
+  color: white;
+}
+@keyframes blink-animation {
+  0% {
+    opacity: 0.6;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+.Uname{
+  margin-top: 120px;
+}
 .showpass{
   scale: 1.5;
   position: relative;
@@ -720,7 +822,7 @@ tr:nth-child(even) {
 }
 .Login > label{
   position: relative;
-  color: white;
+  color: black;
   font-size: larger;
 }
 .Login-btn{
@@ -735,12 +837,97 @@ tr:nth-child(even) {
   background-color: rgb(62, 62, 131);
   border : 0px;
 }
+.load-spin-outer-container{
+  position: relative;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  width: 100%;
+  height: 100%;
+}
+.load-spin-container{
+  width: 100px;
+  height: 100px;
+  background-color: rgb(214, 107, 107);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  margin-top: 0px;
+}
+.loading-spinner{
+  height: 50px;
+  width: 50px;
+  background-color: rgb(31, 34, 67);
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  animation :spin-round 1.5s ease-in-out infinite;
+}
+.loading-spinner div{
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  position: absolute;
+  border-radius: 50%;
+}
+.spin-dot-1,.spin-dot-2,.spin-dot-3,.spin-dot-4{
+  animation: spin-blink 1.5s ease-in-out infinite;
+}
+.spin-dot-1{
+  top: 6px;
+  left: 21px;
+}
+.spin-dot-2{
+  top: 21px;
+  right: 6px;
+}
+.spin-dot-3{
+  bottom: 6px;
+  left: 21px;
+}
+.spin-dot-4{
+  top: 21px;
+  left: 6px;
+}
+@keyframes spin-round {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin-blink {
+  0%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(0.5);
+  }
+  100%{
+    transform: scale(1);
+  }
+}
 
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
   ::-webkit-scrollbar{
     display: none;
   }
+  .Layout{
+    background-size: cover;
+    background-repeat: repeat-x;
+    background-position: -300px 0px;
+    background-color: rgb(144, 144, 243);
+  }
+  .header{
+    overflow-x: scroll;
+  }
+
   .page{
     padding-inline: 10px;
   }

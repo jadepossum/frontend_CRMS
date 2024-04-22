@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 import { useAuth } from '../hooks/userAuthContext';
 import {Navigate} from 'react-router-dom'
 const Header = () => {
-    const {user,setUser,isLoggedIn,setIsLoggedIn,setProfile} = useAuth()
+    const {isLoggedIn,setIsLoggedIn,setProfile} = useAuth()
     return (
         <div className='header'>
             <img src='https://i0.wp.com/jntuwing.in/wp-content/uploads/2022/02/71B14E20-F721-4482-B367-C06C9CF82633.png?resize=205%2C192&ssl=1'/>
@@ -16,11 +16,11 @@ const Header = () => {
                 <NavLink to='/logout' onClick={(e)=>{
                     e.preventDefault();
                     setIsLoggedIn(false);
-                    sessionStorage.setItem("accesstoken","");
+                    sessionStorage.removeItem("accesstoken","");
                     sessionStorage.removeItem("posts")
+                    sessionStorage.removeItem("currentPageCount")
                     console.log("isloggedin :",isLoggedIn)
                     console.log("logout clicked");
-                    setUser({});
                     setProfile({});
                     <Navigate to={'/login'} replace={true}></Navigate>
                 }} >Log out</NavLink>
