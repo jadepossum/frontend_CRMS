@@ -7,11 +7,12 @@ const Header = () => {
     return (
         <div className='header'>
             <img src='https://i0.wp.com/jntuwing.in/wp-content/uploads/2022/02/71B14E20-F721-4482-B367-C06C9CF82633.png?resize=205%2C192&ssl=1'/>
-            <NavLink to='/apply'  id='apply.header'>Apply</NavLink>
-            <NavLink to='/result'>Results</NavLink>
-            <NavLink to='/contact'>Contact</NavLink>
+            <NavLink to='/apply'  id='apply.header' replace={true} >Apply</NavLink>
+            <NavLink to='/result' replace={true}>Results</NavLink>
+            <NavLink to='/contact' replace={true}>Contact</NavLink>
+            <NavLink to='/allprofiles'>Profiles</NavLink>
             {/* <NavLink to='/about'>About</NavLink> */}
-            <NavLink to='/profile' >Profile</NavLink>
+            <NavLink to='/profile' replace={true} >My Profile</NavLink>
             {(isLoggedIn==false)?<NavLink to='/' id='loginheader'>Log in</NavLink>: 
                 <NavLink to='/logout' onClick={(e)=>{
                     e.preventDefault();

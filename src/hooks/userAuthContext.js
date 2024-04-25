@@ -8,7 +8,10 @@ export const AuthProvider = ({ children }) => {
         const [profile,setProfile] = useState({})
         const [csrftoken,setCsrftoken] = useState()
         return (
-            <AuthContext.Provider value={{ user, setUser,isLoggedIn,setIsLoggedIn,profile,setProfile,csrftoken,setCsrftoken}}>
+            <AuthContext.Provider value={{ user, setUser,isLoggedIn,
+                          setIsLoggedIn,profile,setProfile,csrftoken,
+                          setCsrftoken,
+                          }}>
             {children}
             </AuthContext.Provider>
         );

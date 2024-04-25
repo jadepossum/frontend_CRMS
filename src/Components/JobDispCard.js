@@ -1,7 +1,17 @@
-import React from 'react'
-function JobDispCard({job,onClose}) {
-  return (
-    <div className='page-container'>
+import React, { useEffect, useMemo, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useAuth } from '../hooks/userAuthContext'
+function JobDispCard() {
+    const {jobid} = useParams()
+    const job = useMemo(()=>{
+        let totjobs = JSON.parse(sessionStorage.getItem('posts'))
+        console.log(totjobs)
+        return totjobs.find(x =>x.id==jobid)
+    },[jobid])
+    console.log("selected job is :",job)
+    // return <div>hiiii</div>
+  return  (job.id!==undefined)&&(
+   <div  style={{height: '100%'}}>
             <div className='Contact'>
                 <div className='inner-container' style={{marginTop: "10px"}}>
                     <h2>{job.Title}</h2>
@@ -14,7 +24,6 @@ function JobDispCard({job,onClose}) {
                     <p><strong>Job Type:</strong> {job.JobType}</p>
                     <p><strong>Experience Level:</strong> {job.ExperienceLevel}</p>
                     <p><strong>Location:</strong> {job.Location}</p>
-                    <button className='close-job-modal-btn' onClick={onClose}>X</button>
 
                 </div>
                 <div className='inner-container'>
@@ -40,7 +49,6 @@ function JobDispCard({job,onClose}) {
                         </tbody>
                     </table>
                     :null}
-
                 </div>
             </div>
         </div>

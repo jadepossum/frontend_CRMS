@@ -1,13 +1,14 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 function JobPost(props) {
   return (
-    <div className='job-post' onClick={() => props.setjob(props.jpost)}>
+    <NavLink to={'jobpost/'+props.jpost.id} className='job-post'>
         <h3>
         {props.jpost.Title}
         <br/>
         </h3>
-    </div>
+    </NavLink>
   )
 }
 

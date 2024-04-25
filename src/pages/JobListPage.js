@@ -1,17 +1,15 @@
 import React,{useState, useEffect, useRef} from 'react'
 import { useAuth } from '../hooks/userAuthContext';
-import {Navigate} from 'react-router-dom'
-import ModalCard from '../Components/ModalCard';
+import {Navigate, Outlet} from 'react-router-dom'
 import JobPost from '../Components/JobPost';
 import AnimateSpin from '../Components/AnimateSpin';
 const JobListPage = () => {
-    const secondload = useRef(false)
+    // const secondload = useRef(false)
     const fetchcomplete =useRef(0)
-
-    const {isLoggedIn} = useAuth()
+    const [forMe,setForme] = useState(false)
+    const {isLoggedIn,profile} = useAuth()
     const [isLoading,setIsLoading] = useState(true)
     const [errMsg,setErrMsg] = useState('')
-    const [selectedjobid,setSelectedJob] = useState(null)
     const [hasNextPage,setHasNextPage] = useState(true);
     const [jposts, setPosts] = useState([]);
     const [pagecount,setPageCount] = useState(1);
@@ -20,8 +18,7 @@ const JobListPage = () => {
       console.count("joblist useEffect in action")
       // const controller = new AbortController()
       // const signal = controller.signal
-      if(secondload.current===true){
-        if(sessionStorage.getItem('posts')===null){
+        if(sessionStorage.getItem('posts')===null&&isLoggedIn){
           console.log("fetching posts")
           getPosts()
         } 
@@ -34,12 +31,9 @@ const JobListPage = () => {
           console.log("setting page count from sessionStorage")
           setPageCount(JSON.parse(sessionStorage.getItem('currentPageCount')))
         }
-      }
-      // console.log('profile is :',profile) 
       return ()=>{
         console.count("joblist cleanup code")
         // controller.abort()
-        secondload.current = true;
       }
     },[])
     
@@ -80,7 +74,22 @@ const JobListPage = () => {
       fetchcomplete.current = 0
       console.log('isLoading :',isLoading)
     }
-  
+
+    const student = profile.studentDetails
+    const filtposts = jposts.filter(post=>{
+      let select = true
+      let criteria = post.EligibilityCriteria
+      if(criteria.min_cgpa>student.cgpa) select = false
+      else if(criteria.max_backlog_count >student.BackLogCount) select=false
+      else if(criteria.min_twelth_percentage >student.twelthPercentage) select=false
+      else if(criteria.min_tenth_cgpa >student.tenthCGPA) select = false
+      else if(criteria.no_year_gap){
+        if(student.year_gap) select = false
+      }
+      return select;
+    });
+
+
     const filterClickHandler = (event)=>{
       const filteroptions = document.querySelectorAll('.JobFooter > li');
       filteroptions.forEach(elem => {
@@ -92,35 +101,37 @@ const JobListPage = () => {
         })
     }
 
+
     return (
       (isLoggedIn===false)?<Navigate to="/" replace={true} />:
       <div className='page-container'>
+        <Outlet totposts = {jposts}/>
         <div className='Contact'>
           {pagecount===1&&isLoading===true?<AnimateSpin/>:
-          <div className='page'>
-            <ModalCard job={jposts[0]} open={selectedjobid} resetSelected = {()=>{setSelectedJob(null)}}></ModalCard>
-            {
-             jposts.map((post)=>{
-                {/* return <JPost key={post.id} jpost={post} /> */}
-                return <JobPost key={post.id} jpost={post} setjob ={(jb)=>{setSelectedJob(jb)}}/>
-              })
-            }
-            <JobPost key={4454545} jpost={{"Title":"Data Scientist","Description":"Data scientists collect, process, and analyze large and complex datasets to extract meaningful insights and patterns. They use statistical methods, machine learning algorithms, and visualization tools to perform data mining, modeling, and interpretation. They also communicate their findings and recommendations to stakeholders and decision-makers.","Id":4}} />
-            {pagecount!==1&&isLoading===true?<div className='load-spin-outer-container'><AnimateSpin/></div>:null}
-            {(!isLoading)&&hasNextPage&&
-            <button key={5454545}
-                  className='load-more-jobs job-post'
-                  onClick={()=>{getPosts();fetchcomplete.current=1}}
-              >Load More</button>}
+
+          <div className='page'>              
+              {forMe?filtposts.map((post)=>{
+                  return <JobPost key={post.id} jpost={post}/>
+                })
+                :jposts.map((post)=>{
+                  return <JobPost key={post.id} jpost={post} />
+                })}
+
+              {pagecount!==1&&isLoading===true?<div className='load-spin-outer-container'><AnimateSpin/></div>:null}
+
+              {(!isLoading)&&hasNextPage&&
+              <button key={5454545}
+                    className='load-more-jobs job-post'
+                    onClick={()=>{getPosts();fetchcomplete.current=1}}
+                >Load More</button>}
+
           </div>
           }
 
         </div>
         <div className="footernav JobFooter">
-                <li onClick={(e)=>filterClickHandler(e)} className='active-btn'>For me</li>
-                <li onClick={(e)=>filterClickHandler(e)}>All</li>
-                {/* <li onClick={console.log('filter applied')} className='active-btn'>For me</li>
-                <li onClick={console.log('filter applied')}>All</li> */}
+                <li onClick={(e)=>{filterClickHandler(e);setForme(true)}} >For me</li>
+                <li onClick={(e)=>{filterClickHandler(e);setForme(false)}} className='active-btn'>All</li>
         </div>
       </div>
     )
