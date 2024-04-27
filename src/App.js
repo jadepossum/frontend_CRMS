@@ -12,7 +12,7 @@ import ResultCard from './pages/ResultCard';
 import AllProfilesPage from './pages/AllProfilesPage';
 import BranchProfileModal from './Modal/BranchProfileModal'
 import ProfileDispCard from './Components/ProfileDispCard';
-
+import FeedBackDispCard from './Components/FeedBackDispCard';
 const router = createBrowserRouter([
   {
     path:'/',
@@ -28,7 +28,13 @@ const router = createBrowserRouter([
         children:[
           {
             path:'jobpost/:jobid',
-            element:<JobDispCard/>
+            element:<JobDispCard/>,
+            children:[
+              {
+                path:'discussionCorner/:eventid',
+                element:<FeedBackDispCard/>
+              }
+            ]
           }
         ]
       },

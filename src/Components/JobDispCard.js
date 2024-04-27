@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { NavLink, Outlet, useParams } from 'react-router-dom'
 import { useAuth } from '../hooks/userAuthContext'
 function JobDispCard() {
     const {jobid} = useParams()
@@ -12,6 +12,7 @@ function JobDispCard() {
     // return <div>hiiii</div>
   return  (job.id!==undefined)&&(
    <div  style={{height: '100%'}}>
+            <Outlet/>
             <div className='Contact'>
                 <div className='inner-container' style={{marginTop: "10px"}}>
                     <h2>{job.Title}</h2>
@@ -29,7 +30,7 @@ function JobDispCard() {
                 <div className='inner-container'>
                     <p><strong>Deadline:</strong> {job.Deadline}</p>
                     <p><strong>Posted Date:</strong> {job.PostedDate}</p>
-                    <a href={job.ApplyLink}>Apply Here</a>
+                    <a className='ext-apply-link' href={job.ApplyLink}>Visit to Apply</a>
                     
                     {(typeof job.importantDates==="object" && job.importantDates!==null)?
                     <table className='event-date-card'>
@@ -37,6 +38,7 @@ function JobDispCard() {
                             <tr>
                                 <th className='event-date-record-event' style={{borderRadius:"20px"}}>Event</th>
                                 <th className='event-date-record-date' style={{borderRadius:"20px"}} >Date</th>
+
                             </tr>
                         </thead>
                         <tbody style={{borderRadius:"20px"}}>
@@ -44,6 +46,7 @@ function JobDispCard() {
                                 <tr className='event-date-record' key={index}>
                                     <td className='event-date-record-event' style={{borderRadius:"20px"}} >{date.EventTitle}</td>
                                     <td className='event-date-record-date'style={{borderRadius:"20px"}} >{new Date(date.Date).toDateString()}</td>
+                                    <td className='student-feedback-link'><NavLink to={'discussionCorner/'+date.id}>Discuss</NavLink> </td>
                                 </tr>
                             )}
                         </tbody>

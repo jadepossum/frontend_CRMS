@@ -77,6 +77,7 @@ const JobListPage = () => {
 
     const student = profile.studentDetails
     const filtposts = jposts.filter(post=>{
+      if(!isLoggedIn) return null
       let select = true
       let criteria = post.EligibilityCriteria
       if(criteria.min_cgpa>student.cgpa) select = false

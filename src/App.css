@@ -62,23 +62,30 @@ input::-ms-reveal{
 
 /* header */
 .header{
-  position: relative;
-  top:10px;
   height: 50px;
   width: min(700px,calc(100% - 30px));
+  width: min(fit-content,calc(100% - 30px));
+  position: relative;
+  top:10px;
   left: 50%;
   translate: -50%;
   justify-self: center;
   background-color: rgba(62, 62, 131,1);
   display: flex;
-  padding-inline:5px;
   gap: 5px;
   color: white;
   border-radius: 50px;
   flex-wrap: 1;
   overflow-x: hidden;
 }
-.header > a{
+.header-inner-container{
+  overflow-x: scroll;
+  display: flex;
+  padding-inline: 5px;
+  gap: 5px;
+  width: 100%;
+}
+.header a{
   height: 40px;
   padding-inline:10px;
   text-decoration: none;
@@ -89,21 +96,23 @@ input::-ms-reveal{
   margin-top: 5px;
   border-radius: 40px;
   list-style-type: none;
-  padding-inline:5px;
-  display: flex;
+  padding-inline:10px;
+  text-wrap: nowrap;
+  display: flex; 
   flex-direction: column;
   justify-content: center;
+  flex-wrap: nowrap;
   flex-grow: 1;
   text-align: center;
 }
-.header > a.active{
+.header a.active{
   background-color: white;
   color: black;
   transition: color;
   cursor: pointer;
   transition: background-color .5s, color .5s;
 }
-.header > img{
+.header  img{
   background-color: white;
   height: 40px;
   width: 40px;
@@ -218,19 +227,17 @@ input::-ms-reveal{
 .res-sub-btn{
   background-color: rgb(114, 182, 114);
 }
-/* JobPost Styling */
-.job-modal{
-  background-color: red;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-  background-color: rgba(0, 0, 0, 0.5);
+.ext-apply-link{
+  width: fit-content;
+  padding: 10px;
+  border-radius: 50px;
+  box-sizing: border-box;
+  /* display: block; */
+  margin-top: 15px;
+  height: 40px;
+  background-color: #6ecf7d;
+  /* background-color: red; */
+
 }
 
 .load-more-jobs{
