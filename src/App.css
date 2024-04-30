@@ -79,7 +79,6 @@ input::-ms-reveal{
   overflow-x: hidden;
 }
 .header-inner-container{
-  overflow-x: scroll;
   display: flex;
   padding-inline: 5px;
   gap: 5px;
@@ -123,25 +122,16 @@ input::-ms-reveal{
 
 /* Footer */
 .footernav{
-  /* height: 40px;  */
-  width: 260px;
-  padding-inline: 5px;
-  padding-block-start: 5px;
-  padding-block-end:10px;
-  position: sticky;
+  padding: 4px;
+  position: absolute;
   bottom: 0px;
-  /* left: 50vw;
-  translate: -50% 0px; */
-  margin-left: calc(50% - 130px);
   display: flex;
   justify-content: center;
-  gap: 5px;
+  gap: 4px;
   background-color: rgb(62, 62, 131);
   background-color: black;
-  /* background-color: black; */
-  /* border: 3px solid white; */
-  border-radius: 20px 20px 0px 0px;
-  /* border-radius: 100px; */
+  /* border-radius: 20px 20px 0px 0px; */
+  border-radius: 100px;
 }
 .footernav > li{
   cursor: pointer;
@@ -195,6 +185,8 @@ input::-ms-reveal{
 .page{
   /* display: flex;
   flex-direction: column; */
+  width: 100%;
+  box-sizing: border-box;
   padding-inline-start: 10px;
   padding-inline-end: 10px;
   padding-block-end: 200px;
@@ -204,7 +196,7 @@ input::-ms-reveal{
   /* max-width: 900px; */
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 10px;
-  height: calc(100% - 60px);
+  /* height: calc(100% - 60px); */
   overflow-y: auto;
   justify-items: center;
   align-items: center;
@@ -228,12 +220,14 @@ input::-ms-reveal{
   background-color: rgb(114, 182, 114);
 }
 .ext-apply-link{
-  width: fit-content;
   padding: 10px;
   border-radius: 50px;
   box-sizing: border-box;
-  /* display: block; */
-  margin-top: 15px;
+  display: block;
+  margin-inline: auto;
+  margin-top: 5px;
+  width: fit-content;
+  /* margin-top: 35px; */
   height: 40px;
   background-color: #6ecf7d;
   /* background-color: red; */
@@ -362,6 +356,7 @@ tr:nth-child(even) {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-items: center;
   height: calc(100% - 10px);
   justify-self: center;
   position: relative;
@@ -515,6 +510,7 @@ tr:nth-child(even) {
 }
 
 .profile-education {
+  width: calc(100% - 40px);
   margin-inline: 10px;
   margin-block-end: 10px;
   border-radius: 10px;
@@ -563,6 +559,7 @@ tr:nth-child(even) {
   overflow: hidden;
 } */
 .profile-experience {
+  width: calc(100% - 40px);
   border-radius: 10px;
   margin-inline: 10px;
   margin-block-end: 10px;
@@ -585,6 +582,7 @@ tr:nth-child(even) {
   background-color: rgb(144, 144, 243);
   font-weight: 600;
   padding: 20px;
+  border-radius: 20px;
 }
 
 .profile-experience-logo {
@@ -615,6 +613,7 @@ tr:nth-child(even) {
   /* color: #666; */
 }
 .profile-certifications {
+  width: calc(100% - 40px);
   border-radius: 10px;
   margin-inline: 10px;
   padding: 10px;
@@ -635,6 +634,7 @@ tr:nth-child(even) {
   align-items: left;
   padding: 20px;
   margin-bottom: 10px;
+  border-radius: 20px;
 }
 
 .profile-certifications-logo {
@@ -702,6 +702,9 @@ tr:nth-child(even) {
   padding-block: 20px;
   color: white;
   overflow-y: hidden;
+  justify-self: center;
+  padding-inline-start: 10px;
+  align-self: center;
   /* animation: height 0.5s ease-in-out; */
   font-weight: 700;
   gap: 0px;
@@ -725,7 +728,7 @@ tr:nth-child(even) {
   grid-column: 3/4;
   margin-block: 2px;
   margin-inline-end: 30px;
-  border-radius: 20px;
+  border-radius: 8px;
   /* appearance: none; */
   padding-inline-start:  10px;
   padding-block :5px;
@@ -923,7 +926,7 @@ tr:nth-child(even) {
     background-position: -300px 0px;
     background-color: rgb(144, 144, 243);
   }
-  .header{
+  .header-inner-container{
     overflow-x: scroll;
   }
 
@@ -949,5 +952,39 @@ tr:nth-child(even) {
   border-radius: 10px;
   margin-inline: 10px;
   padding: 10px;
+  margin-inline:10px;
+  width:auto;
+  box-sizing: border-box;
   background-color: #fff;
+  background-color: red;
+}
+.student-feedback{
+  width: calc(100% - 20px);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  justify-items: left;
+}
+.student-feedback > span {
+  color: black;
+  font-weight: 600;
+  width: fit-content;
+  position: relative;
+  display: inline-block;
+  left: 0px;
+  /* background-color: rgb(149, 149, 245); */
+  /* background-color: red; */
+  margin-bottom: 5px;
+  padding-block: 5px;
+  padding-inline: 10px;
+  border-radius: 20px;
+}
+.student-feedback > P{
+  background-color: #666;
+  border-radius: 10px;
+  padding-block: 20px;
+  background-color: rgb(149, 149, 245);
+  text-align: left;
+  padding: 10px;
 }

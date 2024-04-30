@@ -10,13 +10,13 @@ function ResultCard() {
   const params = useRef(useParams())
 
   useEffect(()=>{
-      document.getElementById('res-card-filter').style.display = 'none'
+      // document.getElementById('res-card-filter').style.display = 'none'
       const constroller = new AbortController()
       const signal = constroller.signal
       if(results!=[]) fetchResults(signal)
 
       return ()=>{
-        document.getElementById('res-card-filter').style.display = 'flex'
+        // document.getElementById('res-card-filter').style.display = 'flex'
         console.log("res card cleanup")
         constroller.abort()
       }
@@ -39,10 +39,11 @@ function ResultCard() {
 
   return (isLoggedIn===false)?<Navigate to={'/'}></Navigate>:(
     <div style={{height:'100%'}}>
-        <div className='Contact result-table'>
+        {/* <div className='Contact result-table'> */}
+        <div className='Contact'>
         {isLoading?<AnimateSpin/>:
            results.length===0?<h2 style={{'backgroundColor':'white',
-                                  'marginTop':'100px',height:'100px',
+                                  height:'100px',
                                   display:'flex',alignItems:'center',
                                   justifyContent:'center',
                                   width:'300px',height:'80px',
@@ -63,9 +64,9 @@ function ResultCard() {
                     {results.map((elem,ind)=>{
                         return (
                             <tr key={params.current.branch===undefined?params.current.branch+ind: 'jobres'+ind}>
-                                <td><NavLink to={'AllProfile/'+elem.roll_number}>{elem.student_name}</NavLink></td>
+                                <td><NavLink to={'viewProfile?student='+elem.roll_number}>{elem.student_name}</NavLink></td>
                                 <td>{elem.company_name}</td>
-                                <td><NavLink to={'apply/joblist/'+elem.jobid}>{elem.role}</NavLink></td>
+                                <td><NavLink to={'viewJobDesc?jobid='+elem.jobid}>{elem.role}</NavLink></td>
                             </tr>
                         )
                     })}

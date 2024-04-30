@@ -2,7 +2,7 @@ import React, { useState ,useRef, useEffect, useMemo} from 'react'
 import ReactDOM from 'react-dom'
 import {  useParams, NavLink, Outlet } from 'react-router-dom'
 import AnimateSpin from '../Components/AnimateSpin'
-function BranchProfileModal({branch,resetModal}) {
+function BranchProfileModal() {
     const firstLoad = useRef(true)
     const closebtnRef = useRef()
     const [isLoading,setIsLoading] = useState(true)

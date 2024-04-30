@@ -23,7 +23,7 @@ function ProfileDispCard() {
         }
     })
 
-  return pageloading?<AnimateSpin/>:(
+  return pageloading?<div style={{width:"100%",height:"100%"}}><div className='Contact'><AnimateSpin/></div></div>:(
     <div style={{height: '100%'}}>
          <div className='profile-page Contact'>
         <div className="profile">

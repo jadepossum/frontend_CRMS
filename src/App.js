@@ -55,33 +55,12 @@ const router = createBrowserRouter([
             }  
             ]
           },
-        ]
-      },
-      {
-        path :'result/bybranch/:batch/:branch',
-        element:<ResultCard/>
-      },
-      {
-        path :'result/byjobpost/:jobid',
-        element :<ResultCard/>
-      },
-      {
-        path :'allprofiles',
-        element:<AllProfilesPage/>,
-        children:[
           {
-            path :'branch/:batch/:branch',
-            element:<BranchProfileModal/>,
-            children:[{
-              path:'student/:studentid',
-              element:<div className='Contact'>hii there</div>
-            }  
-            ]
-          }
-          ,
+            path :'byjobpost/:jobid',
+            element :<ResultCard/>
+          },
         ]
-      }
-      ,
+      },
       
       {
         path :'profile',

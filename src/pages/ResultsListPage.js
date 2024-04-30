@@ -51,14 +51,15 @@ function ResultsListPage() {
     <div className="page-container">
       <Outlet/>
       <div className="Contact">
-        <div className="page">
-          {activeBtn===1?complist.length!==0&&complist.map((elem,ind) => (
+        
+          {activeBtn===1?<div className="page">{complist.length!==0&&complist.map((elem,ind) => (
             <NavLink key={'resbycomp'+elem[2]} to={'/result/byjobpost/'+elem[2]} className='job-post'>  
               <h2>{elem[0]}</h2>
               <p>{elem[1]}</p>
             </NavLink>
-          )):
-          <form className='profile-form' style={{display:'grid',minWidth:'300px'}}>
+          ))}
+          </div>
+        :<form className='profile-form' style={{display:'grid',minWidth:'300px'}}>
                 <label htmlFor="res-batch-input">Batch</label>
                 <span> : </span>
                 <select ref={batchRef} className='profile-input' defaultValue={currbatch}>
@@ -96,9 +97,6 @@ function ResultsListPage() {
           }
           
           <div className="empty"></div>
-        </div>
-      </div>
-
       <div id='res-card-filter' className="ResultFooter footernav">
         <li
           className={activeBtn === 0 ? 'active-btn' : ''}
@@ -113,8 +111,10 @@ function ResultsListPage() {
           by Company
         </li>
       </div>
+      </div>
     </div>
-  );
+  
+)
 }
 
 export default ResultsListPage;

@@ -8,13 +8,14 @@ function JobDispCard() {
         console.log(totjobs)
         return totjobs.find(x =>x.id==jobid)
     },[jobid])
-    console.log("selected job is :",job)
+
+   
     // return <div>hiiii</div>
   return  (job.id!==undefined)&&(
    <div  style={{height: '100%'}}>
             <Outlet/>
             <div className='Contact'>
-                <div className='inner-container' style={{marginTop: "10px"}}>
+                <div className='inner-container job-desc-card' style={{marginTop: "10px",textAlign:"left"}}>
                     <h2>{job.Title}</h2>
                     <p><strong>Status:</strong> {job.Status}</p>
                     <p><strong>Company:</strong> {job.Company}</p>
@@ -46,7 +47,7 @@ function JobDispCard() {
                                 <tr className='event-date-record' key={index}>
                                     <td className='event-date-record-event' style={{borderRadius:"20px"}} >{date.EventTitle}</td>
                                     <td className='event-date-record-date'style={{borderRadius:"20px"}} >{new Date(date.Date).toDateString()}</td>
-                                    <td className='student-feedback-link'><NavLink to={'discussionCorner/'+date.id}>Discuss</NavLink> </td>
+                                    <td className='student-feedback-link' style={{borderRadius:"20px"}}><NavLink to={'discussionCorner/'+date.id}>Discuss</NavLink> </td>
                                 </tr>
                             )}
                         </tbody>

@@ -129,10 +129,10 @@ const JobListPage = () => {
           </div>
           }
 
-        </div>
         <div className="footernav JobFooter">
                 <li onClick={(e)=>{filterClickHandler(e);setForme(true)}} >For me</li>
                 <li onClick={(e)=>{filterClickHandler(e);setForme(false)}} className='active-btn'>All</li>
+        </div>
         </div>
       </div>
     )
