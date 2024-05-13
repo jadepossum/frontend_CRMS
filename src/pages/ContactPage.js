@@ -12,7 +12,7 @@ function ContactPage() {
             <img src="https://i0.wp.com/jntuwing.in/wp-content/uploads/2022/02/71B14E20-F721-4482-B367-C06C9CF82633.png?resize=205%2C192&ssl=1" alt="Institute Logo" width={"100px"}/>
             <h1>JNTUH University College of Engineering Jagtial</h1>
           </div>
-          <div className="TPOdetails">
+          <div className="TPOdetails inner-container">
               <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="TPO Photo" width={"100px"}/>
               <div className="TPOinfo">
                 <h3><b>TPO NAME</b></h3>
@@ -24,7 +24,7 @@ function ContactPage() {
                 <span>   TPO mail_id</span>
               </div>
           </div>
-          <div className="stats">
+          <div className="stats inner-container">
             {/* <h3>About TPO and Recruitment Office</h3>
             <p></p> */}
             <h3>Here are some of the highlights and statistics of the past placements:</h3>

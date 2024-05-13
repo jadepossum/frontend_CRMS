@@ -53,9 +53,12 @@ function ResultsListPage() {
       <div className="Contact">
         
           {activeBtn===1?<div className="page">{complist.length!==0&&complist.map((elem,ind) => (
-            <NavLink key={'resbycomp'+elem[2]} to={'/result/byjobpost/'+elem[2]} className='job-post'>  
-              <h2>{elem[0]}</h2>
-              <p>{elem[1]}</p>
+            <NavLink key={'resbycomp'+elem[2]} to={'/result/byjobpost/'+elem[2]} className='job-post-card'>  
+              <h2 className='post-title'>{elem[0]}</h2>
+              <div className='deadline-container'>
+                <h5 className='post-company' style={{marginBlock:"5px"}}>{elem[1]}</h5>
+                {/* <p>{elem[1]}</p> */}
+              </div>
             </NavLink>
           ))}
           </div>

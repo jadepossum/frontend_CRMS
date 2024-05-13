@@ -79,7 +79,7 @@ function FeedBackDispCard() {
 
   return (
     <div style={{height:'100%'}}>
-                      <div className='Contact'>
+                      <div className='Contact student-feedback-page'>
                             {isLoading?<div style={{width:"100%",height:"100%"}}>
                               <AnimateSpin/>
                             </div>:

@@ -51,10 +51,12 @@ const JobListPage = () => {
         else{
               if(pagecount===1){
                 console.log('fetched joblist page 1 :',data.posts)
+                data.posts = addcriteria(data.posts)
                 sessionStorage.setItem('posts',JSON.stringify(data.posts))
                 setPosts(data.posts)
               }else{
                 console.log("fetched joblist page :",pagecount,data.posts)
+                data.posts = addcriteria(data.posts)
                 let newtotposts = [...jposts,...data.posts];
                 // newtotposts = newtotposts.concat(data.posts);
                 console.log("newtotposts :",newtotposts)
@@ -76,10 +78,26 @@ const JobListPage = () => {
     }
 
     const student = profile.studentDetails
-    const filtposts = jposts.filter(post=>{
+    const addcriteria = (posts)=>{
+      return posts.map(elem=>{
+        if(!isLoggedIn) return null
+        let select = true
+        let criteria = elem.EligibilityCriteria
+        if(criteria.min_cgpa>student.cgpa) select = false
+        else if(criteria.max_backlog_count >student.BackLogCount) select=false
+        else if(criteria.min_twelth_percentage >student.twelthPercentage) select=false
+        else if(criteria.min_tenth_cgpa >student.tenthCGPA) select = false
+        else if(criteria.no_year_gap){
+          if(student.year_gap) select = false
+        }
+        elem['isEligible'] = select;
+        return elem;
+      })
+    }
+    const modposts  = jposts.map(elem=>{
       if(!isLoggedIn) return null
       let select = true
-      let criteria = post.EligibilityCriteria
+      let criteria = elem.EligibilityCriteria
       if(criteria.min_cgpa>student.cgpa) select = false
       else if(criteria.max_backlog_count >student.BackLogCount) select=false
       else if(criteria.min_twelth_percentage >student.twelthPercentage) select=false
@@ -87,7 +105,23 @@ const JobListPage = () => {
       else if(criteria.no_year_gap){
         if(student.year_gap) select = false
       }
-      return select;
+      elem['isEligible'] = select;
+      return elem;
+    })
+
+    const filtposts = jposts.filter(post=>{
+      // if(!isLoggedIn) return null
+      // let select = true
+      // let criteria = post.EligibilityCriteria
+      // if(criteria.min_cgpa>student.cgpa) select = false
+      // else if(criteria.max_backlog_count >student.BackLogCount) select=false
+      // else if(criteria.min_twelth_percentage >student.twelthPercentage) select=false
+      // else if(criteria.min_tenth_cgpa >student.tenthCGPA) select = false
+      // else if(criteria.no_year_gap){
+      //   if(student.year_gap) select = false
+      // }
+      // post['isEligible'] = select;
+      return post.isEligible;
     });
 
 

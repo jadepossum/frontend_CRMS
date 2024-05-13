@@ -46,9 +46,6 @@ input::-ms-reveal{
 }
 .Layout {
   text-align: center;
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
   height: 100vh;
   width: 100%;
   /* background-image: url("https://img.freepik.com/free-vector/recruitment-concept-illustration_114360-24595.jpg?size=626&ext=jpg&ga=GA1.1.131145598.1708596530&semt=sph"); */
@@ -57,7 +54,6 @@ input::-ms-reveal{
   background-position-x: left;
   background-repeat: repeat;
   background-size: contain;
-  /* overflow: hidden; */
 }
 
 /* header */
@@ -83,6 +79,7 @@ input::-ms-reveal{
   padding-inline: 5px;
   gap: 5px;
   width: 100%;
+
 }
 .header a{
   height: 40px;
@@ -168,6 +165,8 @@ input::-ms-reveal{
   flex-direction: column; */
   overflow-y: hidden;
 }
+
+/* remove this */
 .list{
   width: calc(100% - 20px);
   height: 100%;
@@ -203,6 +202,7 @@ input::-ms-reveal{
 }
 
 /* sub-pages */
+/* appy-page-css */
 .job-post,.result{
   /* min-width: 350px; */
   width: calc(100% - 40px);
@@ -216,24 +216,48 @@ input::-ms-reveal{
   flex-grow: 1;
   padding: 20px;
 }
-.res-sub-btn{
-  background-color: rgb(114, 182, 114);
+.job-post-card{
+  width: calc(100% - 40px);
+  border-radius: 23px;
+  background-color: white;
+  background-image: url('staticFiles/appbackground.jpg');
+  background-position: -140px -40px;
+  background-size: 190%;
+  border: 3px solid rgb(40, 26, 85);
+  /* background-image: radial-gradient(blue,violet,rgb(198, 155, 155)); */
+  /* min-width: 350px; */
 }
-.ext-apply-link{
-  padding: 10px;
-  border-radius: 50px;
-  box-sizing: border-box;
-  display: block;
-  margin-inline: auto;
-  margin-top: 5px;
+.post-title{
+  margin-block: 30px;
+  background-color: black;
   width: fit-content;
-  /* margin-top: 35px; */
-  height: 40px;
-  background-color: #6ecf7d;
-  /* background-color: red; */
-
+  max-width: 80%;
+  margin-inline: auto;
+  padding: 10px 20px;
+  border-radius: 100px;
+  color: white;
 }
-
+.deadline-container{
+  background-color: rgba(35, 35, 71, 0.7);
+  border-radius:0px 0px 20px 20px ;
+  display:flex;
+  padding:10px;
+  gap: 10px;
+  align-items:center;
+  margin-left:auto;
+  /* margin-block:10px; */
+  /* justify-content:right; */
+}
+.post-deadline,.post-company{
+  font-weight: 600;
+  width:fit-content;
+  padding:5px 10px;
+  border-radius:15px;
+  flex: 1;
+}
+.post-company{
+  background-color: white;
+}
 .load-more-jobs{
   background-color: rgb(80, 47, 85);
   width: 200px;
@@ -247,6 +271,85 @@ input::-ms-reveal{
   top: 50%;
   transform: translate(-50%, -50%); */
 }
+
+/* job disp card styling */
+.imp-dates{
+  background-image: url('staticFiles/event_background.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-block-end: 10px;
+}
+.job-disp-card > h2 {
+  margin:auto;
+  text-align: center;
+  padding: 10px;
+  border-radius: 100px;
+  /* display: block; */
+  /* background-color: rgb(232, 175, 175); */
+}
+.job-disp-card > p{
+  display: flex;
+  background-color: rgba(139, 89, 188,0.6);
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+  margin-block: 3px;
+  border-radius: 20px;
+}
+.job-disp-card > p > strong{
+  width: 120px;
+  /* text-align: center; */
+  /* margin-block:5px; */
+  padding-block: 5px;
+  padding-inline-start: 10px;
+  border-radius: 15px;
+  /* flex-grow: 1; */
+  flex-shrink: 0;
+  background-color: rgba(43, 24, 61, 0.6);
+  color: white;
+  align-self: self-start;
+}
+.inner-container{
+  border-radius: 10px;
+  margin-inline: 10px;
+  padding: 10px;
+  margin-inline:10px;
+  box-sizing: border-box;
+  background-color: #fff;
+  width: calc(100% - 20px);
+}
+.res-sub-btn{
+  background-color: rgb(114, 182, 114);
+}
+.ext-apply-link{
+  padding: 10px;
+  border-radius: 50px;
+  box-sizing: border-box;
+  display: block;
+  margin-inline: auto;
+  margin-top: 5px;
+  width: min(80%, 300px);
+  border: 3px solid black;
+  /* box-shadow: 0px 0px 10px 5px rgb(255, 255, 255); */
+  z-index: -1;
+  /* margin-top: 35px; */
+  height: 40px;
+  background-color: #6ecf7d;
+  /* background-color: red; */
+}
+
+.student-feedback-page > .page{
+  flex-grow: 1;
+  width: calc(100% - 20px);
+  border-radius: 20px;
+  margin: 10px;
+  background-image: url('staticFiles/feedback_background.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .card {
   margin: 10px;
   height: calc(100% - 20px);
@@ -329,25 +432,27 @@ th, td {
   border: 1px solid #ccc;
   padding: 10px;
   text-align: left;
+  border-radius: 100px;
   /* border-radius: 20px; */
   text-align: center;
 }
 th {
   background-color: black;
-  color: #f0f0f0;
-
+  color: white;
 }
 tr{
-  background-color: #f0f0f0;
-  color: black;
+  /* background-color: rgba(139, 89, 188,1); */
+  color: white;
+  font-weight: 700;
+}
+td{
+  padding-inline: 20px;
+  background-color: rgba(139, 89, 188,1);
 }
 .result-table > tr > a:hover{
-  background-color: rgb(94, 94, 161);
+  background-color: rgb(131, 131, 190);
   color: red;
   font-weight: bolder;
-}
-tr:nth-child(even) {
-  background-color: #8c89ab;
 }
 
 /* Contact-page */
@@ -948,26 +1053,17 @@ tr:nth-child(even) {
   }
 }
 
-.inner-container{
-  border-radius: 10px;
-  margin-inline: 10px;
-  padding: 10px;
-  margin-inline:10px;
-  width:auto;
-  box-sizing: border-box;
-  background-color: #fff;
-  background-color: red;
-}
+
 .student-feedback{
   width: calc(100% - 20px);
-  background-color: white;
+  background-color: rgba(25, 10, 32, 0.7);
   display: flex;
   flex-direction: column;
   padding: 10px;
   justify-items: left;
 }
 .student-feedback > span {
-  color: black;
+  color: white;
   font-weight: 600;
   width: fit-content;
   position: relative;
