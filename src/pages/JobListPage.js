@@ -94,7 +94,7 @@ const JobListPage = () => {
         return elem;
       })
     }
-    const modposts  = jposts.map(elem=>{
+    jposts.map(elem=>{
       if(!isLoggedIn) return null
       let select = true
       let criteria = elem.EligibilityCriteria
@@ -109,21 +109,7 @@ const JobListPage = () => {
       return elem;
     })
 
-    const filtposts = jposts.filter(post=>{
-      // if(!isLoggedIn) return null
-      // let select = true
-      // let criteria = post.EligibilityCriteria
-      // if(criteria.min_cgpa>student.cgpa) select = false
-      // else if(criteria.max_backlog_count >student.BackLogCount) select=false
-      // else if(criteria.min_twelth_percentage >student.twelthPercentage) select=false
-      // else if(criteria.min_tenth_cgpa >student.tenthCGPA) select = false
-      // else if(criteria.no_year_gap){
-      //   if(student.year_gap) select = false
-      // }
-      // post['isEligible'] = select;
-      return post.isEligible;
-    });
-
+    const filtposts = jposts.filter(post=> post.isEligible);
 
     const filterClickHandler = (event)=>{
       const filteroptions = document.querySelectorAll('.JobFooter > li');
@@ -142,8 +128,7 @@ const JobListPage = () => {
       <div className='page-container'>
         <Outlet totposts = {jposts}/>
         <div className='Contact'>
-          {pagecount===1&&isLoading===true?<AnimateSpin/>:
-
+          {pagecount===1&&isLoading===true?<div className='load-spin-outer-container'><AnimateSpin/></div>:
           <div className='page'>              
               {forMe?filtposts.map((post)=>{
                   return <JobPost key={post.id} jpost={post}/>

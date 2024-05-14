@@ -20,6 +20,7 @@ const Header = () => {
                         sessionStorage.removeItem("accesstoken","");
                         sessionStorage.removeItem("posts")
                         sessionStorage.removeItem("currentPageCount")
+                        sessionStorage.removeItem("myApplications")
                         console.log("isloggedin :",isLoggedIn)
                         console.log("logout clicked");
                         setProfile({});

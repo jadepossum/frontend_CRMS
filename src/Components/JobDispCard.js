@@ -1,26 +1,76 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { NavLink, Outlet, useParams } from 'react-router-dom'
+import { NavLink, Outlet, json, useParams } from 'react-router-dom'
 import { useAuth } from '../hooks/userAuthContext'
+import AnimateSpin from './AnimateSpin'
 function JobDispCard() {
     const {jobid} = useParams()
+    const {profile} = useAuth()
+    const [isLoading,setIsLoading] = useState(false)
+    const [isApplied,setIsApplied] = useState(false)
+    useEffect(()=>{
+        console.log(profile.myApplications)
+        console.log(isApplied)
+        const myApplications = sessionStorage.getItem('myApplications')
+        console.log("myApplications :",myApplications)
+        if(myApplications!==null&&JSON.parse(myApplications).find(x=>x.job===job.id)!==undefined&&(isApplied===false)){
+            setIsApplied(true)
+            console.log("this job :",job.Title," is already applied")
+        }
+    })
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
     const job = useMemo(()=>{
         let totjobs = JSON.parse(sessionStorage.getItem('posts'))
-        console.log(totjobs)
         return totjobs.find(x =>x.id==jobid)
     },[jobid])
+    
+
     const date = new Date();
     const deadline = new Date(job.Deadline);
-    const applyClickHandler = (e)=>{
-        console.log(job)
-        console.log("isEligible :",job.isEligible)
-        if(deadline<date){
-            e.preventDefault();
-            alert("Deadline has passed, Cannot Apply");
-            return 
-        }
-        if(job.isEligible===false){
+    const applyClickHandler = async (e)=>{
+        // console.log(job)
+        // console.log("isEligible :",job.isEligible)
+        // if(deadline<date){
+        //     e.preventDefault();
+        //     alert("Deadline has passed, Cannot Apply");
+        // }
+        // if(job.isEligible===false){
+        //     e.preventDefault()
+        //     alert("You are not Eligible, Cannot Apply");
+        // }
+        e.preventDefault()
+        if(job.IsDirectApply){
+            setIsLoading(true)
+            console.log("direct apply")
             e.preventDefault()
-            alert("You are not Eligible, Cannot Apply");
+            await fetch("/api/directapply",{
+                method:"POST",
+                headers:{'Content-Type' : 'application/json','X-CSRFToken':getCookie('csrftoken')},
+                body:JSON.stringify({"job":job.id,"student":profile.studentDetails.roll_number})
+            }).then(res=>res.json())
+            .then(data=>{
+                console.log(data)
+                setIsLoading(false)
+                setIsApplied(data)
+                const newapplications = sessionStorage.getItem('myApplications')?JSON.parse(sessionStorage.getItem('myApplications')):[]
+                newapplications.push(data)
+                sessionStorage.setItem('myApplications',JSON.stringify(newapplications))
+            })
+            .catch(err=>console.log(err))
         }
     }
    
@@ -28,8 +78,33 @@ function JobDispCard() {
   return  (job.id!==undefined)&&(
    <div  style={{height: '100%'}}>
             <Outlet/>
+            {isLoading?<div className='Contact'><div className='load-spin-outer-container'><AnimateSpin/></div></div>:
             <div className='Contact'>
-                <div className='inner-container job-disp-card' style={{marginTop: "10px",textAlign:"left"}}>
+                <div className='inner-container' style={{display:"flex",marginTop:"10px",justifyContent:"space-between",gap:"10px"}}>
+                    {job.IsDirectApply?
+                        isApplied?
+                            <div className='application-status ext-apply-link'>Applied</div>
+                            :<a className='ext-apply-link' 
+                                onClick={applyClickHandler}
+                                style={{backgroundColor:(deadline<date||job.isEligible===false)?'rgb(221, 149, 149)':'rgb(147, 208, 147)'}} 
+                                target='blank'>Apply
+                            </a>
+                        :<>
+                            <a className='ext-apply-link' 
+                            href={job.ApplyLink} 
+                            style={{backgroundColor:(deadline<date||job.isEligible===false)?'rgb(221, 149, 149)':'rgb(147, 208, 147)'}} 
+                            target='blank'>Visit to Apply
+                            </a>
+                            {isApplied?
+                                <div className='application-status ext-apply-link'>Applied</div>
+                                :<div className='ext-apply-link' onClick={applyClickHandler}
+                                    style={{backgroundColor:(deadline<date||job.isEligible===false)?'rgb(221, 149, 149)':'rgb(147, 208, 147)'}} 
+                                >Mark as Applied</div>
+                            }
+                        </>
+                    }
+                </div>
+                <div className='inner-container job-disp-card' style={{textAlign:"left"}}>
                     <h2>{job.Title}</h2>
                     <p><strong>Status:</strong> <span>{deadline<date?"Closed":"Open"}</span></p>
                     <p><strong>Company:</strong> <span>{job.Company}</span></p>
@@ -74,13 +149,9 @@ function JobDispCard() {
                     :null}
                         </tbody>
                     </table>
-                    <a className='ext-apply-link' 
-                        href={job.ApplyLink} 
-                        onClick={applyClickHandler}
-                        style={{backgroundColor:(deadline<date||job.isEligible===false)?'rgb(221, 149, 149)':'rgb(147, 208, 147)'}} 
-                        target='blank'>Visit to Apply</a>
                 </div>
             </div>
+            }
         </div>
   )
 }

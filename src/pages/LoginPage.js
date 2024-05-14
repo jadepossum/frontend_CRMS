@@ -46,6 +46,7 @@ function LoginPage() {
                 setUser(resdata.user)
                 setProfile(resdata)
                 console.log(resdata)
+                sessionStorage.setItem('myApplications',JSON.stringify(resdata.myApplications))
                 setIsLoggedIn(true)
                 return true
               }
@@ -93,6 +94,7 @@ function LoginPage() {
         setUser(resdata.user)
         setProfile(resdata)
         console.log(resdata)
+        sessionStorage.setItem('myApplications',JSON.stringify(resdata.myApplications))
         setIsLoggedIn(true)
       }
       else{
