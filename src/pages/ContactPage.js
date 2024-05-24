@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 function ContactPage() {
-  useEffect(() => {
-    
-  },[])
+
 
   return (
     <div className='page-container'>

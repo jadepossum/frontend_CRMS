@@ -118,6 +118,7 @@ function LoginPage() {
     (isLoggedIn===true)?<Navigate to="/apply"/>:
     
     <div className='page-container'>
+      <div className='Contact' style={{backgroundColor:"transparent"}}>
           {(isLoading===true)?<div className='Login'>
             <AnimateSpin/>
           </div>:
@@ -132,6 +133,7 @@ function LoginPage() {
               <input className='Login-btn' onClick={userlogin} type='button' name='Login' value={'Login'}></input>
           </div>
           }
+          </div>
     </div>
   )
 }

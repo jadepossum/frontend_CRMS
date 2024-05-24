@@ -42,18 +42,17 @@ function JobDispCard() {
     const date = new Date();
     const deadline = new Date(job.Deadline);
     const applyClickHandler = async (e)=>{
-        // console.log(job)
-        // console.log("isEligible :",job.isEligible)
-        // if(deadline<date){
-        //     e.preventDefault();
-        //     alert("Deadline has passed, Cannot Apply");
-        // }
-        // if(job.isEligible===false){
-        //     e.preventDefault()
-        //     alert("You are not Eligible, Cannot Apply");
-        // }
-        e.preventDefault()
-        if(job.IsDirectApply){
+        console.log(job)
+        console.log("isEligible :",job.isEligible)
+        if(deadline<date){
+            e.preventDefault();
+            alert("Deadline has passed, Cannot Apply");
+        }
+        else if(job.isEligible===false){
+            e.preventDefault()
+            alert("You are not Eligible, Cannot Apply");
+        }
+        else {
             setIsLoading(true)
             console.log("direct apply")
             e.preventDefault()

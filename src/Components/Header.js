@@ -21,6 +21,7 @@ const Header = () => {
                         sessionStorage.removeItem("posts")
                         sessionStorage.removeItem("currentPageCount")
                         sessionStorage.removeItem("myApplications")
+                        sessionStorage.removeItem("rescomplist")
                         console.log("isloggedin :",isLoggedIn)
                         console.log("logout clicked");
                         setProfile({});
